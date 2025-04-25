@@ -828,3 +828,32 @@ body.view-control-buttons .viewControlButton {
 .viewControlButton-6 {
   margin-left: 105px;
 }
+#miniMap {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid #fff;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#miniMap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#miniMapMarker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: red;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
