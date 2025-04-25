@@ -388,13 +388,13 @@
   
 
 
-  const sceneLinks = document.querySelectorAll('.scene');
-
-  const miniMapMarkers = {
-    "0-living-room": document.getElementById("miniMapMarkerLiving_room"),
-    "1-bedroom": document.getElementById("miniMapMarkerBed_room"),
-    "2-bathroom": document.getElementById("miniMapMarkerBath_room")
-  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const sceneLinks = document.querySelectorAll('.scene');
+    const miniMapMarkers = {
+      "0-living-room": document.getElementById("miniMapMarkerLiving_room"),
+      "1-bedroom": document.getElementById("miniMapMarkerBed_room"),
+      "2-bathroom": document.getElementById("miniMapMarkerBath_room")
+    };
 
   // ✅ ฟังก์ชันกลาง
   function switchScene(roomId, fromSceneList = false) {
@@ -421,19 +421,19 @@
     console.log(`Switched to scene: ${roomId}`);
   }
 
-  // ✅ เมื่อคลิกที่ลิงก์ห้อง → ซ่อน marker อื่น
-  sceneLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      const roomId = link.getAttribute('data-id');
-      switchScene(roomId, true); // true = fromSceneList
+    // ✅ เมื่อคลิกที่ลิงก์ห้อง → ซ่อน marker อื่น
+    sceneLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const roomId = link.getAttribute('data-id');
+        switchScene(roomId, true); // true = fromSceneList
+      });
     });
-  });
 
-  // ✅ เมื่อคลิก marker → เปลี่ยน scene แต่ไม่ต้องซ่อน marker อื่น
-  Object.entries(miniMapMarkers).forEach(([roomId, marker]) => {
-    marker.style.display = 'block'; // ✅ เริ่มต้นแสดง marker ทั้งหมด
-    marker.addEventListener('click', () => {
-      switchScene(roomId); // false = default
+    sceneLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const roomId = link.getAttribute('data-id');
+        switchScene(roomId, true); // true = fromSceneList
+      });
     });
   });
 
