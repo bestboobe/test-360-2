@@ -189,6 +189,7 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
+    updateMiniMapMarker(scene.data.id);
   }
 
   function updateSceneName(scene) {
@@ -388,57 +389,22 @@
   
 
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const sceneLinks = document.querySelectorAll('.scene');
-    const miniMapMarkers = {
-      "0-living-room": document.getElementById("miniMapMarkerLiving_room"),
-      "1-bedroom": document.getElementById("miniMapMarkerBed_room"),
-      "2-bathroom": document.getElementById("miniMapMarkerBath_room")
-    };
-
-  // ✅ ฟังก์ชันกลาง
-  function switchScene(roomId, fromSceneList = false) {
-    // ✅ ถ้ามาจาก scene list → ซ่อน marker ทั้งหมด แล้วแสดงเฉพาะอันที่เลือก
-    if (fromSceneList) {
-      Object.values(miniMapMarkers).forEach(marker => {
-        marker.style.display = 'none';
-      });
-      if (miniMapMarkers[roomId]) {
-        miniMapMarkers[roomId].style.display = 'block';
-      }
+  function updateMiniMapMarker(sceneId) {
+    // ซ่อน marker ทั้งหมดก่อน
+    document.getElementById('miniMapMarkerLiving_room').style.display = 'none';
+    document.getElementById('miniMapMarkerBed_room').style.display = 'none';
+    document.getElementById('miniMapMarkerBath_room').style.display = 'none';
+  
+    // แสดง marker ตาม scene ปัจจุบัน
+    if (sceneId === '0-living-room') {
+      document.getElementById('miniMapMarkerLiving_room').style.display = 'block';
+    } else if (sceneId === '1-bedroom') {
+      document.getElementById('miniMapMarkerBed_room').style.display = 'block';
+    } else if (sceneId === '2-bathroom') {
+      document.getElementById('miniMapMarkerBath_room').style.display = 'block';
     }
-
-    // ✅ เปลี่ยนสี active
-    Object.entries(miniMapMarkers).forEach(([id, marker]) => {
-      marker.classList.toggle('active', id === roomId);
-    });
-
-    sceneLinks.forEach(link => {
-      const isActive = link.getAttribute('data-id') === roomId;
-      link.classList.toggle('active', isActive);
-    });
-
-    console.log(`Switched to scene: ${roomId}`);
   }
-
-    // ✅ เมื่อคลิกที่ลิงก์ห้อง → ซ่อน marker อื่น
-    sceneLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        const roomId = link.getAttribute('data-id');
-        switchScene(roomId, true); // true = fromSceneList
-      });
-    });
-
-    sceneLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        const roomId = link.getAttribute('data-id');
-        switchScene(roomId, true); // true = fromSceneList
-      });
-    });
-  });
-
-
-
+  
   // Display the initial scene.
   switchScene(scenes[0]);
 
